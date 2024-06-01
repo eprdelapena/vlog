@@ -1,0 +1,70 @@
+.container{
+    display: flex;
+    gap: 70px;
+}
+
+.button:first-child{
+    background-color: #3673fd;
+    color: white;
+}
+
+.textContainer{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title{
+    font-size: 70px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.buttons{
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.button{
+    padding: 20px;
+    min-width: 120px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.description{
+    font-size: 20px;
+}
+
+.brands{
+    width: 500px;
+    height: 50px;
+    position: relative;
+    filter: grayscale(100%);
+    margin: auto;
+    text-align: center;
+}
+
+.imgContainer{
+    flex: 1;
+    position: relative;
+
+}
+
+@media (max-width: 1024px){
+    .textContainer{
+        align-items: start;
+    }
+    
+    .title{
+        text-align: start;
+    }
+
+    .container{
+        display: flex;
+        gap: 0px;
+    }
+}

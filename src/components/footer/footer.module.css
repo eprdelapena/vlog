@@ -1,0 +1,11 @@
+.container{
+    height: 150px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.logo{
+    font-size: 15px;
+    color: white;
+}
