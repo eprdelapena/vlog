@@ -4,6 +4,7 @@
     align-items: center;
     height: 100px;
     margin-bottom: 20px;
+    padding-right: 60px;
 }
 
 .logo{
@@ -11,4 +12,10 @@
     font-size: 30px;
     font-weight: bold;
 }
+
+@media (max-width: 1024px){
+    .container{
+      padding-right: 20px;
+    }
+  }
 

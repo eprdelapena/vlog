@@ -1,70 +1,91 @@
+.container h1{
+    font-size: 50px;
+    text-align: center;
+}
+
 .container{
     display: flex;
-    gap: 70px;
-}
-
-.button:first-child{
-    background-color: #3673fd;
-    color: white;
-}
-
-.textContainer{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.title{
-    font-size: 70px;
-    margin-bottom: 10px;
-    text-align: center;
+    width: 100%;   
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .buttons{
     display: flex;
-    margin-top: 20px;
+    justify-content: center;
     gap: 20px;
+    width: 75%;
 }
 
 .button{
-    padding: 20px;
-    min-width: 120px;
+    height: 75px;
+    width:  130px;
+    border-radius: 10px;
+    border: 1px solid black;
     cursor: pointer;
-    border: none;
-    border-radius: 5px;
 }
 
-.description{
-    font-size: 20px;
+.learnMore{
+    background-color: #0A355D;
+    color:white;
 }
-
-.brands{
-    width: 500px;
-    height: 50px;
+.fillContainer{
+    width: 600px;
+    height: 600px;
     position: relative;
+}
+
+.brandImg{
+    width: 100%;
+    position: relative;
+    height: 50px;
+    display: flex;
     filter: grayscale(100%);
-    margin: auto;
-    text-align: center;
 }
 
 .imgContainer{
-    flex: 1;
-    position: relative;
+    display: flex;
+    width: 40%;
+    justify-content: center;
+}
 
+.textContainer{
+    display: flex;
+    padding-top: 150px;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+    gap: 20px;
 }
 
 @media (max-width: 1024px){
-    .textContainer{
-        align-items: start;
-    }
-    
-    .title{
-        text-align: start;
+    .container{
+      width: 768px;
     }
 
-    .container{
-        display: flex;
-        gap: 0px;
+    .textContainer h4{
+        font-size: 10px;
     }
-}
+
+    .button{
+        height: 60px;
+        width:  115px;
+    }
+  }
+
+  @media (max-width: 640px){
+    .container{
+      width: 475px;
+    }
+
+    .imgContainer{
+        display: none;
+    }
+
+    .textContainer{
+        width:100%;
+        padding-top: 20px;
+    }
+  
+  }

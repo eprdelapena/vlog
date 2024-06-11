@@ -19,6 +19,10 @@
     gap: 25px;
 }
 
+.textContainer p{
+    text-align: justify;
+}
+
 .dataContainer{
     display:flex;
     row-gap: 50px;
