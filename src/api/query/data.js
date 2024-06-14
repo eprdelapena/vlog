@@ -3,6 +3,8 @@ import {Schema, model, models} from "mongoose";
 import { unstable_noStore as noStore } from 'next/cache'; 
 import { revalidatePath } from "next/cache"; 
 import { redirect } from "next/navigation";
+import { signIn, signOut } from '@/lib/auth';
+import bcrypt from 'bcryptjs'; //1. import bcrypt
 
 export const userSchema = new Schema({ 
     username: {
@@ -62,8 +64,8 @@ const postSchema = new Schema({
     }
 }, {timestamps: true});
 
-const User = models.User || model('User', userSchema); 
-const Post = models.Post || model('Post', postSchema); 
+export const User = models?.User || model('User', userSchema); 
+export const Post = models?.Post || model('Post', postSchema); 
 
 export const getUser = async (user) => { 
     noStore();
@@ -76,6 +78,13 @@ export const getUser = async (user) => {
         console.error(error);
     }
 }
+
+export const handleGithubLogin = async () => { 
+    "use server"; 
+    await signIn("github"); 
+  }
+
+
 
 export const getPosts = async () => { 
     noStore();
@@ -122,6 +131,57 @@ export const addData = async (formData) => {
         console.log("Successfully saved to database");
         revalidatePath("/blog"); //4. this purge all cache data thus allowing new data to redirect and appear immediately
         redirect("/blog"); //5. redirect to /blog import redirect from next/navigation
+    }
+    catch(error){
+        console.error(error);
+    }
+
+}
+
+export const login = async (formData) => {
+    "use server";  
+    const Uusername = formData.get("username"); 
+    const Upassword = formData.get("password");
+
+    try{
+        await signIn("credentials", {Uusername, Upassword});
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
+export const addUser = async (previousState, formData) => { 
+    "use server";  
+    const Uusername = formData.get("username"); 
+    const Uemail = formData.get("email");
+    const Upassword = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if(Upassword !== confirmPassword){
+        return {error: "Password do not match"}; //1. add errors through an object
+    }
+
+    try{
+        connectToDB();
+        const singleUser = await User.findOne({"email": Uemail}); 
+        if(singleUser){
+            return {error: "User already exists"}; //2. add errors through an object
+        }
+
+        const salt = await bcrypt.genSalt(10); 
+        const hashedPassword = await bcrypt.hash(Upassword, salt); 
+
+        const user = new User({ 
+            username: Uusername,
+            email: Uemail,
+            password: hashedPassword, 
+        });
+
+        user.save(); 
+        console.log("Successfully saved to database");
+        revalidatePath("/blog");
+        return {success: true}; //3. if success return success true as an object
     }
     catch(error){
         console.error(error);

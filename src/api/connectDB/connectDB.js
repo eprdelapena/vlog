@@ -6,7 +6,7 @@ const connection = {}; //1. create a variable to store a connection
 
 export const connectToDB = async () => {
     try{
-        if(connect.isConnected){ //2. if connection exists do nothing
+        if(connect?.isConnected){ //2. if connection exists do nothing
             console.log("using existing connection");
             return;
         }

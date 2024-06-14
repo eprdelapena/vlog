@@ -1,8 +1,18 @@
 import React from 'react'
+import styles from './register.module.css'
+import Registration from '@/components/registration/Registration'
 
-const Registerpage = () => {
+
+const Registerpage = async () => { 
   return (
-    <div>Registerpage</div>
+    <>
+      <div className={styles.parentContainer}> 
+        <div className={styles.container}>
+          <h2 className={styles.headingTwo}> Register Page </h2>
+          <Registration />
+        </div>
+      </div>
+    </>
   )
 }
 

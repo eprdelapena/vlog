@@ -2,8 +2,12 @@ import React from 'react'
 import Links from './links/Links'
 import styles from './navbar.module.css'
 import Link from 'next/link'
+import { auth } from '@/lib/auth'
+  
 
-const Navbar = () => {
+const Navbar = async () => {
+  const currentSession = await auth();
+  
   return (
     <>
         <div className={styles.container}>
@@ -11,7 +15,7 @@ const Navbar = () => {
                 <Link href="/"> Lama </Link>
             </div>
             <div>
-                <Links />
+                <Links session={currentSession}/>
             </div>
         </div>
 

@@ -1,14 +1,20 @@
 'use client';
 
 import React from 'react'
-import Link from 'next/link'
 import styles from './links.module.css'
 import Navlink from './navlinks/Navlink.jsx'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from 'react';
+import { handleLogout } from '@/api/query/handleLogout';
 
-const Links = () => {
+
+
+
+
+const Links = ({session}) => {
     const[isOpen, setOpen] = useState(false);
+
+
 
     const links = [
         {
@@ -29,8 +35,8 @@ const Links = () => {
         },
     ]
 
-    const session = true;
-    const isAdmin = true;
+    // const session = true;
+    // const isAdmin = true;
   return (
     <>
     <div className={styles.container}>
@@ -38,13 +44,16 @@ const Links = () => {
                 {links.map((element) => (
                     <Navlink item={element} key={element.title}/>
                 ))}
-                {
-                    session ? (<>{isAdmin && 
-                        <Navlink item={{title: "Admin", path: "/admin"}}/>}
-                        
+                {session?.user ? (
+                <>
+                    {session.user?.isAdmin && <Navlink item={{ title: "Admin", path: "/admin" }} />}
+                    <form action={handleLogout}>
                         <button className={styles.logout}>Logout</button>
-                    </>) : (<><Navlink item={{title: "Login", path: "/login"}}/></>)
-                }
+                    </form>
+                </>
+                ) : (
+                <Navlink item={{ title: "Login", path: "/login" }} />
+                )}
             </div>
             <button className={styles.menuButton} onClick={() => setOpen(!isOpen)}> <GiHamburgerMenu size={20} /> </button>
             {
