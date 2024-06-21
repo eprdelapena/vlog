@@ -23,17 +23,14 @@ const Aboutpage = () => {
     <>
       <div className={styles.container}>
         <div className={`${styles.textContainer}`}> 
-          <h3 className={styles.headingThree}> About Agency </h3>
+          <h3 className={styles.headingThree}> About this site </h3>
           <h1> 
-            We Create digital ideas
-            that are bigger, bolder, 
-            braver, and better
+            We let you express yourselves by allowing you to upload art, 
+            and nesting a story within it behind an anonymous username
           </h1>
           <p>
-            We create digital ideas that are bigger, bolder, braver and better. We
-            believe in good ideas flexibility and Precision. We`re world`s. Our Special
-            Team best consulting & fiannce solution provider. Wide range of web 
-            and software development services.
+            Create ideas that are bigger, bolder, braver and better. We
+            believe in the stigma of expressing oneself. We hope to build a world where freedom of expression is respected
           </p>
           <div className={styles.dataContainer}>
             {data.map((element) => (

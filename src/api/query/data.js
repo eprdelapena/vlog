@@ -3,8 +3,7 @@ import {Schema, model, models} from "mongoose";
 import { unstable_noStore as noStore } from 'next/cache'; 
 import { revalidatePath } from "next/cache"; 
 import { redirect } from "next/navigation";
-import { signIn, signOut } from '@/lib/auth';
-import bcrypt from 'bcryptjs'; //1. import bcrypt
+
 
 export const userSchema = new Schema({ 
     username: {
@@ -118,7 +117,7 @@ export const addData = async (formData) => {
     const Uslug = formData.get("userslug");
     const Uuserid = formData.get("userid");
 
-    const post = new Post({ //1. add user schema new objecct
+    const post = new Post({ 
         title: Utitle,
         desc: Udesc,
         img: Uimg,
@@ -126,11 +125,11 @@ export const addData = async (formData) => {
         slug: Uslug
     });
     try{
-        connectToDB(); //2. connect to the database
-        post.save(); //3. then save
+        connectToDB(); 
+        post.save(); 
         console.log("Successfully saved to database");
-        revalidatePath("/blog"); //4. this purge all cache data thus allowing new data to redirect and appear immediately
-        redirect("/blog"); //5. redirect to /blog import redirect from next/navigation
+        revalidatePath("/blog"); 
+        redirect(`/blog`);
     }
     catch(error){
         console.error(error);
@@ -159,14 +158,14 @@ export const addUser = async (previousState, formData) => {
     const confirmPassword = formData.get("confirmPassword");
 
     if(Upassword !== confirmPassword){
-        return {error: "Password do not match"}; //1. add errors through an object
+        return {error: "Password do not match"}; 
     }
 
     try{
         connectToDB();
         const singleUser = await User.findOne({"email": Uemail}); 
         if(singleUser){
-            return {error: "User already exists"}; //2. add errors through an object
+            return {error: "User already exists"}; 
         }
 
         const salt = await bcrypt.genSalt(10); 
@@ -181,7 +180,7 @@ export const addUser = async (previousState, formData) => {
         user.save(); 
         console.log("Successfully saved to database");
         revalidatePath("/blog");
-        return {success: true}; //3. if success return success true as an object
+        return {success: true}; 
     }
     catch(error){
         console.error(error);
@@ -194,11 +193,11 @@ export const deleteData = async (formData) => {
     const Uusername = formData.get("userid"); 
     
     try{
-        connectToDB(); //2. connect to the database
+        connectToDB(); 
         const deletePost = await Post.deleteOne({userid: Uusername})
         console.log("Successfully deleted to database");
-        revalidatePath("/blog"); //4. this purge all cache data thus allowing new data to redirect and appear immediately
-        redirect("/blog"); //5. redirect to /blog import redirect from next/navigation
+        revalidatePath("/blog"); 
+        redirect("/blog"); 
     }
     catch(error){
         console.error(error);

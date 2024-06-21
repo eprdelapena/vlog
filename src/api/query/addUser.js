@@ -1,8 +1,6 @@
 "use server";
 
-
 import { connectToDB } from "../connectDB/connectDB"; 
-import { revalidatePath } from "next/cache"; 
 import bcrypt from 'bcryptjs'; //1. import bcrypt
 import { User } from "../model/userSchema";
 
@@ -35,7 +33,6 @@ export const addUser = async (previousState, formData) => {
 
         user.save(); 
         console.log("Successfully saved to database");
-        revalidatePath("/blog");
         return {success: true}; //3. if success return success true as an object
     }
     catch(error){
